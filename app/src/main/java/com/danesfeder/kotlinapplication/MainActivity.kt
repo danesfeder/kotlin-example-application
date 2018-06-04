@@ -14,8 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val forecastList = findViewById<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
-
-
+        forecastList.adapter = ForecastListAdapter(items)
     }
 
     fun niceToast(message: String,
@@ -23,4 +22,14 @@ class MainActivity : AppCompatActivity() {
                   length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "[$tag] $message", length).show()
     }
+
+    private val items = listOf(
+            "Mon 6/24 - Sunny - 31/17",
+            "Tues 6/25 - Foggy - 34/12",
+            "Wed 6/26 - Cloudy - 29/16",
+            "Thurs 6/27 - Sunny - 30/18",
+            "Fri 6/28 - Rainy - 33/15",
+            "Sat 6/29 - Sunny - 37/12",
+            "Sun 6/30 - Snowy - 30/17"
+    )
 }
