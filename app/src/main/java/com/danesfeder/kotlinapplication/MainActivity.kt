@@ -15,6 +15,20 @@ class MainActivity : AppCompatActivity() {
         val forecastList = findViewById<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.adapter = ForecastListAdapter(items)
+
+        val person = Person()
+        person.name = "Dan"
+        niceToast(person.name)
+        person.name = "Pablo"
+        niceToast(person.name)
+    }
+
+    class Person {
+        var name: String = ""
+            get() = field.toUpperCase()
+            set(value) {
+                field = "Name: $value"
+            }
     }
 
     fun niceToast(message: String,
