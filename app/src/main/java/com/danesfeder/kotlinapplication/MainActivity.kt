@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,11 +19,10 @@ class MainActivity : AppCompatActivity() {
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.adapter = ForecastListAdapter(items)
 
-        val person = Person()
-        person.name = "Dan"
-        niceToast(person.name)
-        person.name = "Pablo"
-        niceToast(person.name)
+        doAsync {
+            Request(url).run()
+            uiThread { longToast("Request performed") }
+        }
     }
 
     class Person {
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity() {
                   length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "[$tag] $message", length).show()
     }
+
+    val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
+            "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
 
     private val items = listOf(
             "Mon 6/24 - Sunny - 31/17",
