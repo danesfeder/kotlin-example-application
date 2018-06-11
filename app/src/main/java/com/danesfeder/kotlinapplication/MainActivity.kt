@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
+import android.util.Log
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.uiThread
-
+import java.util.*
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,21 +23,14 @@ class MainActivity : AppCompatActivity() {
             Request(url).run()
             uiThread { longToast("Request performed") }
         }
+
+        val f1 = Forecast(Date(), 27.5f, "Sunny day")
+        val f2 = f1.copy(temperature = 30f)
+
+        Log.d(javaClass.simpleName, f2.temperature.toString())
     }
 
-    class Person {
-        var name: String = ""
-            get() = field.toUpperCase()
-            set(value) {
-                field = "Name: $value"
-            }
-    }
-
-    fun niceToast(message: String,
-                  tag: String = MainActivity::class.java.simpleName,
-                  length: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(this, "[$tag] $message", length).show()
-    }
+    data class Forecast(val date: Date, val temperature: Float, val details: String)
 
     val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
             "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
@@ -52,3 +45,4 @@ class MainActivity : AppCompatActivity() {
             "Sun 6/30 - Snowy - 30/17"
     )
 }
+
