@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.danesfeder.kotlinapplication.command.RequestForecastCommand
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand("20003").execute()
             uiThread { forecastList.adapter = ForecastListAdapter(result) }
         }
+
+        val dan = Mapboxer(firstName = "Dan")
+        toast("Mapoxer: ${dan.firstName} ${dan.lastName}")
     }
+
+    class Mapboxer(val firstName: String, val lastName: String = "Nesfeder")
 }
 
