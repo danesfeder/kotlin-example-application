@@ -6,6 +6,7 @@ object CityForecastTable {
   const val CITY = "city"
   const val COUNTRY = "country"
 }
+
 object DayForecastTable {
   const val NAME = "DayForecast"
   const val ID = "_id"
